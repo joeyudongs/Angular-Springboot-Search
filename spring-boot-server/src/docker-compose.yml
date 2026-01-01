@@ -1,6 +1,7 @@
 services:
   db:
     image: postgres:16
+    container_name: userlab-postgres
     environment:
       POSTGRES_DB: userlab
       POSTGRES_USER: userlab
@@ -9,5 +10,6 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+
 volumes:
   pgdata:

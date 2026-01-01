@@ -11,9 +11,9 @@ create table user_info (
   created_time    timestamptz not null default now()
 );
 
--- org_id index
-create index idx_user_info_org_id on user_info(org_id);
+-- -- org_id index
+-- create index idx_user_info_org_id on user_info(org_id);
 
--- 常见：email 精确或前缀查询会更快（可选）
-create index idx_user_info_email on user_info(email);
+-- -- 常见：email 精确或前缀查询会更快（可选）
+-- create index idx_user_info_email on user_info(email);
 ß

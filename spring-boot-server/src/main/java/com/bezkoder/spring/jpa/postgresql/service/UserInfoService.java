@@ -1,6 +1,5 @@
 package com.bezkoder.spring.jpa.postgresql.service;
 
-
 import com.bezkoder.spring.jpa.postgresql.dto.UserInfoDto;
 import com.bezkoder.spring.jpa.postgresql.entity.UserInfo;
 import com.bezkoder.spring.jpa.postgresql.repository.UserInfoRepository;

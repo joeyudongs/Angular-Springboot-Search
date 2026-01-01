@@ -13,6 +13,15 @@
     </label>
   </div>
 
+  <div class="row" style="margin-bottom: 10px;">
+    <label>Org:</label>
+    <select [value]="orgId" (change)="changeOrg($any($event.target).value)">
+      <option [value]="1">Org 1</option>
+      <option [value]="2">Org 2</option>
+      <option [value]="3">Org 3</option>
+    </select>
+  </div>
+
   <div class="row">
     <input class="input" [formControl]="query" placeholder="Type name/email..." />
     <div class="metrics" *ngIf="lastResponseMs !== null">

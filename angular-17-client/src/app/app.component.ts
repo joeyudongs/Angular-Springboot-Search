@@ -33,6 +33,11 @@ export class AppComponent implements OnInit {
       distinctUntilChanged(),
       switchMap(q => {
         const text = (q ?? '').trim();
+        if (text.length < 2) {  // min length
+          this.suggestions = [];
+          this.lastResponseMs = null;
+          return of<UserInfo[]>([]);
+        }
 
         if (!text) {
           this.suggestions = [];
@@ -97,4 +102,19 @@ export class AppComponent implements OnInit {
       .filter(u => (`${u.firstname} ${u.lastname} ${u.email} ${u.uname}`).toLowerCase().includes(s))
       .slice(0, 20);
   }
+
+  changeOrg(v: string) {
+    this.orgId = Number(v);
+    this.selected = undefined;
+    this.suggestions = [];
+    this.lastResponseMs = null;
+  
+    // org 改变后，local cache 必须清空（因为 cache 只属于某个 org）
+    this.localLoaded = false;
+    this.localCache = [];
+  
+    // 可选：清空输入框
+    this.query.setValue('', { emitEvent: false });
+  }
+  
 }

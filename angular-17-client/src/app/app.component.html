@@ -1,17 +1,33 @@
-<div>
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">bezKoder</a>
-    <div class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a routerLink="tutorials" class="nav-link">Tutorials</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="add" class="nav-link">Add</a>
-      </li>
-    </div>
-  </nav>
+<div class="wrap">
+  <h2>User Search Lab</h2>
 
-  <div class="container mt-3">
-    <router-outlet></router-outlet>
+  <div class="modes">
+    <label>
+      <input type="radio" name="mode" [checked]="mode==='REMOTE'" (change)="setMode('REMOTE')" />
+      Remote (debounce + call backend)
+    </label>
+
+    <label>
+      <input type="radio" name="mode" [checked]="mode==='LOCAL'" (change)="setMode('LOCAL')" />
+      Local (fetch 1000 once, then filter in browser)
+    </label>
+  </div>
+
+  <div class="row">
+    <input class="input" [formControl]="query" placeholder="Type name/email..." />
+    <div class="metrics" *ngIf="lastResponseMs !== null">
+      last response: <b>{{ lastResponseMs | number:'1.0-2' }} ms</b>
+    </div>
+  </div>
+
+  <ul class="dropdown" *ngIf="suggestions.length > 0">
+    <li *ngFor="let u of suggestions" (click)="choose(u)">
+      {{ display(u) }}
+    </li>
+  </ul>
+
+  <div class="selected" *ngIf="selected">
+    <h3>Selected</h3>
+    <pre>{{ selected | json }}</pre>
   </div>
 </div>

@@ -1,6 +1,12 @@
 <div class="wrap">
+  <!-- Page title -->
   <h2>User Search Lab</h2>
 
+  <!-- Search mode selector: REMOTE vs LOCAL -->
+  <!-- Angular-specific:
+       - Property binding: [checked]
+       - Event binding: (change)
+  -->
   <div class="modes">
     <label>
       <input type="radio" name="mode" [checked]="mode==='REMOTE'" (change)="setMode('REMOTE')" />
@@ -13,6 +19,16 @@
     </label>
   </div>
 
+  <!-- Org selector (simulates multi-tenant behavior)<select>：下拉框。 -->
+  <!-- Angular-specific:
+       - Property binding: [value] 把组件里的 orgId 变量绑定到 select 当前选中的值。也就是：orgId 是 1，就默认选中 “Org 1”。
+       - Event binding: (change) 当用户在下拉框里选择了新的 option，会触发 change 事件，然后执行 changeOrg(...)。
+       change 事件里，$event 是事件对象；target 是触发事件的 DOM 元素（这里就是 <select>），value 是当前选中的 option 值。
+       - $any(...) is used to bypass strict template typing，（Angular 模板类型“逃生口” / type escape hatch）
+       在 Angular 模板的严格类型检查下，$event.target 的类型有时会被推断成 EventTarget | null，而 EventTarget 不一定有 .value 属性，于是模板会报类型错误。
+        “我知道我在干什么，你别做类型检查了，把它当成 any 来用。”
+        这样你就能安全地写 .value 而不被模板编译器报错。
+  -->
   <div class="row" style="margin-bottom: 10px;">
     <label>Org:</label>
     <select [value]="orgId" (change)="changeOrg($any($event.target).value)">
@@ -22,19 +38,38 @@
     </select>
   </div>
 
+  <!-- Search input row -->
+  <!-- Angular-specific:
+       - Reactive Forms binding: [formControl]
+       - Structural directive: *ngIf
+       - Pipe: number formatting
+  -->
   <div class="row">
     <input class="input" [formControl]="query" placeholder="Type name/email..." />
+
+    <!-- Display last response time if available -->
     <div class="metrics" *ngIf="lastResponseMs !== null">
       last response: <b>{{ lastResponseMs | number:'1.0-2' }} ms</b>
     </div>
   </div>
 
+  <!-- Dropdown suggestions -->
+  <!-- Angular-specific:
+       - *ngIf: conditional rendering
+       - *ngFor: list rendering
+       - (click): event binding
+  -->
   <ul class="dropdown" *ngIf="suggestions.length > 0">
     <li *ngFor="let u of suggestions" (click)="choose(u)">
       {{ display(u) }}
     </li>
   </ul>
 
+  <!-- Selected user debug output -->
+  <!-- Angular-specific:
+       - *ngIf
+       - json pipe
+  -->
   <div class="selected" *ngIf="selected">
     <h3>Selected</h3>
     <pre>{{ selected | json }}</pre>

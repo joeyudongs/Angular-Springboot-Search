@@ -48,7 +48,7 @@ public class UserInfoService {
      * - DB does the LIMIT via PageRequest(0, limit).
      */
     public List<UserInfoDto> all(long orgId, int limit) {
-        int safeLimit = clampLimit(limit, 1, 5000); // allow larger for experiments
+        int safeLimit = clampLimit(limit, 1, 50000); // allow larger for experiments
 
         var pageable = PageRequest.of(0, safeLimit, Sort.by("id").ascending());
 

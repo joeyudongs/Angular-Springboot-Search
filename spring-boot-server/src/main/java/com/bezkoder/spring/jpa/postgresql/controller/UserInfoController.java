@@ -16,25 +16,6 @@ public class UserInfoController {
         this.service = service;
     }
 
-    // // A: remote search
-    // @GetMapping("/search")
-    // public List<UserInfoDto> search(
-    //         @RequestParam(defaultValue = "1") Long orgId,
-    //         @RequestParam String q,
-    //         @RequestParam(defaultValue = "20") int limit
-    // ) {
-    //     return service.search(orgId, q, limit);
-    // }
-
-    // // B: fetch all once (for your “1000 users local filter” experiment)
-    // @GetMapping("/all")
-    // public List<UserInfoDto> all(
-    //         @RequestParam(defaultValue = "1") Long orgId,
-    //         @RequestParam(defaultValue = "1000") int limit
-    // ) {
-    //     return service.all(orgId, limit);
-    // }
-
     /**
      * A) Remote search endpoint:
      * Example:
@@ -61,5 +42,27 @@ public class UserInfoController {
     ) {
         return service.all(orgId, limit);
     }
+
+    
+    // // A: remote search
+    // @GetMapping("/search")
+    // public List<UserInfoDto> search(
+    //         @RequestParam(defaultValue = "1") Long orgId,
+    //         @RequestParam String q,
+    //         @RequestParam(defaultValue = "20") int limit
+    // ) {
+    //     return service.search(orgId, q, limit);
+    // }
+
+    // // B: fetch all once (for your “1000 users local filter” experiment)
+    // @GetMapping("/all")
+    // public List<UserInfoDto> all(
+    //         @RequestParam(defaultValue = "1") Long orgId,
+    //         @RequestParam(defaultValue = "1000") int limit
+    // ) {
+    //     return service.all(orgId, limit);
+    // }
+
+    
 }
 

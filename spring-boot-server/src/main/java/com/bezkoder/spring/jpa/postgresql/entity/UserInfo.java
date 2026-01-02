@@ -32,7 +32,6 @@ public class UserInfo {
     @Column(name="created_time", nullable=false)
     private OffsetDateTime createdTime;
 
-    // getters/setters 可以用 Lombok
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public Long getOrgId() { return orgId; }
